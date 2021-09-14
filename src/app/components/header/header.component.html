@@ -1,0 +1,26 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+            <a routerLink="books">Livres</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li routerLinkActive="active">
+            <a routerLink="sign-up">Créer un compte</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="!ngAuthService.userState as user">
+            <a routerLink="sign-in">Connexion</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="ngAuthService.userState as user">
+            <a routerLink="dashboard">Dashboard</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="ngAuthService.userState as user">
+            <a class="btn btn-block btn-primary" (click)="ngAuthService.SignOut()">
+                Sign Out
+            </a>
+        </li>
+      </ul>
+    </div>
+</nav>
+  
