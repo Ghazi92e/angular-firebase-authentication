@@ -7,20 +7,24 @@
                 <input type="text" class="form-control" id="title" formControlName="title">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom: 10px;">
                 <label for="author">Auteur</label>
                 <input type="text" class="form-control" id="author" formControlName="author">
             </div>
+            <!--
             <div class="form-group">
                 <h4>Ajouter une photo</h4>
                 <input type="file" (change)="selectFile($event)" class="form-control" accept="image/*">
                 <p class="text-success" *ngIf="fileUploaded"> Fichier chargé !</p>
             </div>
+            -->
             <button class="btn btn-success" [disabled]="bookForm.invalid || fileIsUploading" type="submit">Enregistrer</button>
         </form>
-        <button class="btn btn-success"
+        <!--
+            <button class="btn btn-success"
             (click)="onUploadFile()">Upload
-        </button>
+            </button>
+        -->
     </div>
 </div>
 
