@@ -4,15 +4,6 @@
 
 export const environment = {
   production: false,
-  firebase: {
-    apiKey: "AIzaSyCGaobsGZ4DKq71ecnQRBqIF7zcC9gsqF0",
-    authDomain: "bookshelves-dce3e.firebaseapp.com",
-    projectId: "bookshelves-dce3e",
-    storageBucket: "bookshelves-dce3e.appspot.com",
-    messagingSenderId: "892165507630",
-    appId: "1:892165507630:web:4b2fd20202f1eb112e2dbf",
-    databaseURL: "https://bookshelves-dce3e-default-rtdb.europe-west1.firebasedatabase.app/",
-  }
 };
 
 /*
