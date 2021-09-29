@@ -25,6 +25,7 @@ import { DetailsUploadComponent } from './upload/details-upload/details-upload.c
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { UploadFileService } from './upload/upload-file.service';
+import { EditBookComponent } from './components/book-list/edit-book/edit-book.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { UploadFileService } from './upload/upload-file.service';
     HeaderComponent,
     FormUploadComponent,
     ListUploadComponent,
-    DetailsUploadComponent
+    DetailsUploadComponent,
+    EditBookComponent
   ],
   imports: [
     BrowserModule,
