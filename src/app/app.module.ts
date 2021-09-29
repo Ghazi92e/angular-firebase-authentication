@@ -11,13 +11,13 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
-import { NgAuthService } from './services/ng-auth.service';
-import { BookListComponent } from './components/book-list/book-list.component';
-import { SingleBookComponent } from './components/book-list/single-book/single-book.component';
-import { BookFormComponent } from './components/book-list/book-form/book-form.component';
+import { NgAuthService } from './_services/ng-auth.service';
+import { BookListComponent } from './components/books/book-list/book-list.component';
+import { SingleBookComponent } from './components/books/single-book/single-book.component';
+import { BookFormComponent } from './components/books/book-form/book-form.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BooksService } from './services/books.service';
+import { BooksService } from './_services/books.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormUploadComponent } from './upload/form-upload/form-upload.component';
 import { ListUploadComponent } from './upload/list-upload/list-upload.component';
@@ -25,7 +25,7 @@ import { DetailsUploadComponent } from './upload/details-upload/details-upload.c
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { UploadFileService } from './upload/upload-file.service';
-import { EditBookComponent } from './components/book-list/edit-book/edit-book.component';
+import { EditBookComponent } from './components/books/edit-book/edit-book.component';
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
-import { BookFormComponent } from './components/book-list/book-form/book-form.component';
-import { BookListComponent } from './components/book-list/book-list.component';
-import { EditBookComponent } from './components/book-list/edit-book/edit-book.component';
-import { SingleBookComponent } from './components/book-list/single-book/single-book.component';
+import { BookFormComponent } from './components/books/book-form/book-form.component';
+import { BookListComponent } from './components/books/book-list/book-list.component';
+import { EditBookComponent } from './components/books/edit-book/edit-book.component';
+import { SingleBookComponent } from './components/books/single-book/single-book.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';

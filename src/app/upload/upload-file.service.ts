@@ -3,7 +3,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/datab
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { FileUpload } from '../models/Fileupload.model';
+import { FileUpload } from '../_models/Fileupload.model';
 
 @Injectable({
   providedIn: 'root'

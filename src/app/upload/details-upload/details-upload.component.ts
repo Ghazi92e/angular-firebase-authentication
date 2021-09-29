@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FileUpload } from 'src/app/models/Fileupload.model';
+import { FileUpload } from 'src/app/_models/Fileupload.model';
 import { UploadFileService } from '../upload-file.service';
 
 @Component({
