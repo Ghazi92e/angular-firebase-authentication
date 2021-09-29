@@ -12,8 +12,15 @@
                     </button>
                 </h3>
                 <p class="list-group-item-text">Auteur: {{ book.author }}</p>
+                <img style="max-width:400px;" *ngIf="book.url" [src]="book.url">
             </button>
         </div>
         <button class="btn btn-primary" (click)="onNewBook()">Nouveau livre</button>
     </div>
+
+    <!--
+    <app-list-upload></app-list-upload>
+    <app-form-upload></app-form-upload>
+    -->
 </div>
+<!--<app-book-form [book]="book" ></app-book-form>-->
