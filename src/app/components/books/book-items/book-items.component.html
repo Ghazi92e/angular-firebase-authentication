@@ -1,0 +1,8 @@
+<div class="text-center book-block">
+    <img style="width:150px; height: 200px; border-radius: 30px;" *ngIf="book.url" [src]="book.url">
+    <p>{{ book.title }}</p>
+    <button class="btn btn-danger" (click)="onDeleteBook(book)">
+        <span class="glyphicon glyphicon-minus"></span>
+    </button>
+    <p>{{ book.author }}</p>
+</div>
