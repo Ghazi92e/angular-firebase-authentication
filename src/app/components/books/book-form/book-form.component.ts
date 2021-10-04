@@ -71,10 +71,10 @@ export class BookFormComponent implements OnInit {
             const height = img.naturalHeight;
             const width = img.naturalWidth;
             console.log('Width and Height', width, height);
-            if (event.target.files[0].size > 300 * 300) {
+            if (event.target.files[0].size > 400 * 400) {
               Swal.fire('Erreur image', "Taille de l'image tros eleve", 'error');
             }
-            else if (height > 500 || width > 500) {
+            else if (height > 700 || width > 700) {
               Swal.fire('Erreur image', "Dimension de l'image tros eleve", 'error');
             }
             else {
