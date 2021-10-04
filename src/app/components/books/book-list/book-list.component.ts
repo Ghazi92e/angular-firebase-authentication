@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Book } from 'src/app/_models/Book.model';
-import { FileUpload } from 'src/app/_models/Fileupload.model';
 import { BooksService } from 'src/app/_services/books.service';
 import { UploadFileService } from 'src/app/upload/upload-file.service';
 
@@ -15,7 +14,6 @@ export class BookListComponent implements OnInit, OnDestroy {
 
   books: Book[] = []; //arret local
   booksSubscription: Subscription = new Subscription;
-  @Input() fileUpload: FileUpload | any;
 
   
   constructor(private booksService: BooksService, private uploadService: UploadFileService, private router: Router) { }

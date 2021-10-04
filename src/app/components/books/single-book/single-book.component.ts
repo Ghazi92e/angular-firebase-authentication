@@ -35,6 +35,10 @@ export class SingleBookComponent implements OnInit {
     this.router.navigate(['/books', 'edit', id]);
   }
 
+  onDeleteBook(book: Book) {
+    this.booksService.removeBook(book);
+  }
+
   onBack() {
     this.router.navigate(['/books']);
   }
