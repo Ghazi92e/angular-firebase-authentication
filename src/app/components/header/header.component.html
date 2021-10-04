@@ -1,26 +1,22 @@
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-      <ul class="navbar-nav">
-        <li routerLinkActive="active" class="nav-item" *ngIf="ngAuthService.userState as user">
-            <a routerLink="books" class="nav-link">Livres</a>
+
+<nav class="navbar navbar-expand-lg navbar-light justify-content-center" style="background-color: white;">
+    <div class="navbar-nav">
+        <li routerLinkActive="active" *ngIf="ngAuthService.userState as user">
+            <a routerLink="books" class="nav-item nav-link">Livres</a>
         </li>
-      </ul>
-      <ul class="navbar-nav navbar-right">
-        <li routerLinkActive="active" class="nav-item">
-            <a routerLink="sign-up" class="nav-link">Créer un compte</a>
+        <li routerLinkActive="active">
+            <a routerLink="sign-up" class="nav-item nav-link">Créer un compte</a>
         </li>
         <li routerLinkActive="active" *ngIf="!ngAuthService.userState as user">
-            <a routerLink="sign-in" class="nav-link">Connexion</a>
+            <a routerLink="sign-in" class="nav-item nav-link">Connexion</a>
         </li>
         <li routerLinkActive="active" *ngIf="ngAuthService.userState as user">
-            <a routerLink="dashboard">Dashboard</a>
+            <a routerLink="dashboard" class="nav-item nav-link">Dashboard</a>
         </li>
         <li routerLinkActive="active" *ngIf="ngAuthService.userState as user">
-            <a class="btn btn-block btn-primary" (click)="ngAuthService.SignOut()">
+            <button class="btn btn-danger justify-content-end" (click)="ngAuthService.SignOut()">
                 Sign Out
-            </a>
+            </button>
         </li>
-      </ul>
     </div>
 </nav>
-  

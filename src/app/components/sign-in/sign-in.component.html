@@ -1,34 +1,34 @@
-<div class="displayTable">
-    <div class="displayTableCell">
+<div class="row justify-content-center" style="margin-top: 150px;">
+    <div class="col-6">
   
       <div class="authBlock">
-        <h3>Signin</h3>
+        <h3>Connexion</h3>
         <div class="formGroup">
-          <input type="text" class="form-control" placeholder="Username" #userName required>
+          <input type="text" class="form-control" style="margin-bottom: 10px;" placeholder="Adresse e-mail" #userName required>
         </div>
   
         <div class="formGroup">
-          <input type="password" class="form-control" placeholder="Password" #userPassword required>
+          <input type="password" class="form-control" style="margin-bottom: 10px;" placeholder="Mot de passe" #userPassword required>
         </div>
   
         <div class="formGroup">
-          <input type="button" class="btn btn-primary btn-block" value="Sign in"
+          <input type="button" class="btn btn-primary btn-block" style="margin-bottom: 10px;" value="Se connecter"
             (click)="ngAuthService.SignIn(userName.value, userPassword.value)">
         </div>
   
         <div class="formGroup">
           <button type="button" class="btn btn-danger btn-block" (click)="ngAuthService.GoogleAuth()">
-            Log in with Google
+            Se connecter avec Google
           </button>
         </div>
   
         <div class="forgotPassword">
-          <span routerLink="/forgot-password">Forgot Password?</span>
+          <span routerLink="/forgot-password" style="cursor: pointer;">Mot de passe oublié ?</span>
         </div>
       </div>
   
       <div class="redirectToLogin">
-        <span>Not registered yet?<span class="redirect" routerLink="/sign-up"> Register</span></span>
+        <span>Pas encore inscrit ?<span class="redirect" routerLink="/sign-up" style="cursor: pointer;"> Inscrivez-vous</span></span>
       </div>
   
     </div>

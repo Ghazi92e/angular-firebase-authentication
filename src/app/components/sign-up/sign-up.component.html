@@ -1,32 +1,30 @@
-<div class="displayTable">
-    <div class="displayTableCell">
-  
-      <div class="authBlock">
-        <h3>Register User</h3>
-  
-        <div class="formGroup">
-          <input type="email" class="form-control" placeholder="Email Address" #userEmail required>
-        </div>
-  
-        <div class="formGroup">
-          <input type="password" class="form-control" placeholder="Password" #userPwd required>
-        </div>
-  
-        <div class="formGroup">
-          <input type="button" class="btn btn-block btn-primary" value="Sign Up"
-            (click)="ngAuthService.SignUp(userEmail.value, userPwd.value)">
-        </div>
-  
-        <div class="formGroup">
-          <button type="button" class="btn btn-block btn-danger" (click)="ngAuthService.GoogleAuth()">
-            Continue with Google
-          </button>
-        </div>
+<div class="row justify-content-center" style="margin-top: 150px;">
+  <div class="col-6">
+    <div class="authBlock">
+      <h3>Inscription</h3>
+
+      <div class="form-group">
+        <input type="email" class="form-control"  style="margin-bottom: 10px;" placeholder="Adresse e-mail" #userEmail required>
       </div>
-  
-      <div class="redirectToLogin">
-        <span>Already have an account? <span class="redirect" routerLink="/sign-in">Log In</span></span>
+
+      <div class="form-group">
+        <input type="password" class="form-control" style="margin-bottom: 10px;" placeholder="Mot de passe" #userPwd required>
+      </div>
+
+      <div class="form-group">
+        <input type="button" class="btn btn-primary" style="margin-bottom: 10px;" value="S'inscrire"
+          (click)="ngAuthService.SignUp(userEmail.value, userPwd.value)">
+      </div>
+
+      <div class="form-group">
+        <button type="button" class="btn btn-block btn-danger" (click)="ngAuthService.GoogleAuth()">
+          S'inscrire avec Google
+        </button>
       </div>
     </div>
-  
+
+    <div class="redirectToLogin">
+      <span>Vous avez déjà un compte ?<span class="redirect"  style="cursor: pointer; padding-left: 5px;" routerLink="/sign-in">Connectez-vous</span></span>
+    </div>
+  </div>
 </div>
