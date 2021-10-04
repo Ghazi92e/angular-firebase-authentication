@@ -19,13 +19,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BooksService } from './_services/books.service';
 import { HttpClientModule } from '@angular/common/http';
-import { FormUploadComponent } from './upload/form-upload/form-upload.component';
-import { ListUploadComponent } from './upload/list-upload/list-upload.component';
-import { DetailsUploadComponent } from './upload/details-upload/details-upload.component';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { UploadFileService } from './upload/upload-file.service';
+import { UploadFileService } from './_services/upload-file.service';
 import { EditBookComponent } from './components/books/edit-book/edit-book.component';
+import { BookItemsComponent } from './components/books/book-items/book-items.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,10 +36,8 @@ import { EditBookComponent } from './components/books/edit-book/edit-book.compon
     SingleBookComponent,
     BookFormComponent,
     HeaderComponent,
-    FormUploadComponent,
-    ListUploadComponent,
-    DetailsUploadComponent,
-    EditBookComponent
+    EditBookComponent,
+    BookItemsComponent
   ],
   imports: [
     BrowserModule,

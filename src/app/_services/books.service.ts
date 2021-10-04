@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { UploadFileService } from '../upload/upload-file.service';
+import { UploadFileService } from './upload-file.service';
 
 
 

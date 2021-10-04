@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Book } from 'src/app/_models/Book.model';
 import { FileUpload } from 'src/app/_models/Fileupload.model';
 import { BooksService } from 'src/app/_services/books.service';
-import { UploadFileService } from 'src/app/upload/upload-file.service';
+import { UploadFileService } from 'src/app/_services/upload-file.service';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
