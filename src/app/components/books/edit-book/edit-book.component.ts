@@ -75,11 +75,11 @@ export class EditBookComponent implements OnInit {
             const height = img.naturalHeight;
             const width = img.naturalWidth;
             console.log('Width and Height', width, height);
-            if (event.target.files[0].size > 300 * 300) {
-              Swal.fire('Erreur image', "Taille de l'image tros eleve", 'error');
+            if (event.target.files[0].size > 400 * 400) {
+              Swal.fire('Erreur image', "La taille de l'image est trop grande", 'error');
             }
-            else if (height > 500 || width > 500) {
-              Swal.fire('Erreur image', "Dimension de l'image tros eleve", 'error');
+            else if (height > 700 || width > 700) {
+              Swal.fire('Erreur image', "La dimension de l'image est tros grande", 'error');
             }
             else {
               this.selectedFiles = event.target.files;
