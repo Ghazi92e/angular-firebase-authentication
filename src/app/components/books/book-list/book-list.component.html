@@ -3,17 +3,9 @@
         <div class="row">
             <h1 class="text-center" style="padding-bottom: 20px; padding-top: 100px;">Vos livres</h1>
             <div class="col-4" *ngFor="let book of books; let i = index" (click)="onViewBook(i)" style="width: 300px;">
-                <div class="text-center book-block">
-                    <img style="width:150px; height: 200px; border-radius: 30px;" *ngIf="book.url" [src]="book.url">
-                    <p>{{ book.title }}</p>
-                    <button class="btn btn-danger" (click)="onDeleteBook(book)">
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </button>
-                    <p>{{ book.author }}</p>
-                </div>
+                <app-book-items [book]="book"></app-book-items>
             </div>
         </div>
         <button class="btn btn-primary" (click)="onNewBook()">Ajouter un livre</button>
-        <!--<app-book-form [book]="book" ></app-book-form>-->
     </div>
 </body>

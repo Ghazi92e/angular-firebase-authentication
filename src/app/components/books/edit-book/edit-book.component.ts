@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Book } from 'src/app/_models/Book.model';
 import { FileUpload } from 'src/app/_models/Fileupload.model';
 import { BooksService } from 'src/app/_services/books.service';
-import { UploadFileService } from 'src/app/upload/upload-file.service';
+import { UploadFileService } from 'src/app/_services/upload-file.service';
 import Swal from 'sweetalert2';
 
 @Component({
