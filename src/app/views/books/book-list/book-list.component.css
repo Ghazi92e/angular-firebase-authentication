@@ -1,0 +1,10 @@
+h1 {
+    font-family: fantasy;
+
+}
+
+p {
+    font: italic 1.7em "Fira Sans", serif;
+    font-size: 20px;
+    text-align: center
+}

@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row">
+        <h1 class="text-center" style="padding-bottom: 60px; padding-top: 60px;">Livres</h1>
+        <div class="col" *ngFor="let book of books; let i = index" (click)="onViewBook(i)">
+            <app-book-item [book]="book"></app-book-item>
+        </div>
+    </div>
+    <div style="padding-top: 30px; padding-bottom: 30px;">
+        <button class="btn btn-primary" (click)="onNewBook()">Ajouter un livre</button>
+    </div>
+</div>
