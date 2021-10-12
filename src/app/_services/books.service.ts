@@ -4,7 +4,6 @@ import { AngularFireDatabase } from "@angular/fire/compat/database";
 import { Subject } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 import { UploadFileService } from './upload-file.service';
 
 
@@ -16,12 +15,9 @@ export class BooksService {
 
   books: Book[] = []; //arret local
   booksSubject = new Subject<Book[]>();
-  downloadURL: Observable<string> | any;
 
   constructor(
     private afDatabase: AngularFireDatabase,
-    private storage: AngularFireStorage,
-    private uploadService: UploadFileService,
 
   ) { }
 
@@ -69,7 +65,6 @@ export class BooksService {
   }
 
   removeBook(book: Book) {
-    this.uploadService.deleteFileUpload(book)
     const bookIndexToRemove = this.books.findIndex(
       (bookEl) => {
         if(bookEl === book) {
