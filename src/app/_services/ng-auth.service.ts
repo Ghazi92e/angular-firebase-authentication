@@ -18,7 +18,7 @@ export interface User {
 })
 
 export class NgAuthService {
-    userState: any;
+    user: any;
 
     constructor(
         public afs: AngularFirestore,
@@ -26,10 +26,10 @@ export class NgAuthService {
         public router: Router,
         public ngZone: NgZone
     ) {
-        this.afAuth.authState.subscribe(user => { //authState to define user authentication state
+        this.afAuth.authState.subscribe(user => {
+          this.user = user;
             if (user) {
-                this.userState = user;
-                localStorage.setItem('user', JSON.stringify(this.userState));
+                localStorage.setItem('user', JSON.stringify(this.user));
                 JSON.parse(localStorage.getItem('user') || '{}');
             } else {
                 localStorage.setItem('user', 'null');
@@ -95,6 +95,7 @@ export class NgAuthService {
               this.router.navigate(['dashboard']);
             })
           this.SetUserData(result.user);
+          console.log(result.user);
         }).catch((error) => {
           window.alert(error)
         })
@@ -108,7 +109,7 @@ export class NgAuthService {
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          emailVerified: user.emailVerified
+          emailVerified: user.emailVerified,
         }
         return userRef.set(userState, {
           merge: true
