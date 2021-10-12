@@ -6,24 +6,28 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { DashboardComponent } from './views/authentication/dashboard/dashboard.component';
+import { SignInComponent } from './views/authentication/sign-in/sign-in.component';
+import { SignUpComponent } from './views/authentication/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './views/authentication/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './views/authentication/verify-email/verify-email.component';
 import { NgAuthService } from './_services/ng-auth.service';
-import { BookListComponent } from './components/books/book-list/book-list.component';
-import { SingleBookComponent } from './components/books/single-book/single-book.component';
-import { BookFormComponent } from './components/books/book-form/book-form.component';
-import { HeaderComponent } from './components/header/header.component';
+import { BookListComponent } from './views/books/book-list/book-list.component';
+import { SingleBookComponent } from './views/books/single-book/single-book.component';
+import { BookFormComponent } from './layout/book-form/book-form.component';
+import { HeaderComponent } from './layout/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BooksService } from './_services/books.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { UploadFileService } from './_services/upload-file.service';
-import { EditBookComponent } from './components/books/edit-book/edit-book.component';
-import { BookItemsComponent } from './components/books/book-items/book-items.component';
+import { EditBookComponent } from './views/books/edit-book/edit-book.component';
+import { BookItemsComponent } from './layout/book-item/book-item.component';
+import { CreateBookComponent } from './views/books/create-book/create-book.component';
+import { UserBookComponent } from './views/users/user-book/user-book.component';
+import { UsersService } from './_services/users.service';
+import { UserBookItemComponent } from './views/users/user-book-item/user-book-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +41,10 @@ import { BookItemsComponent } from './components/books/book-items/book-items.com
     BookFormComponent,
     HeaderComponent,
     EditBookComponent,
-    BookItemsComponent
+    BookItemsComponent,
+    CreateBookComponent,
+    UserBookComponent,
+    UserBookItemComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +58,7 @@ import { BookItemsComponent } from './components/books/book-items/book-items.com
     AngularFireDatabaseModule,
     AngularFireStorageModule
   ],
-  providers: [NgAuthService, BooksService, UploadFileService],
+  providers: [NgAuthService, BooksService, UploadFileService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
