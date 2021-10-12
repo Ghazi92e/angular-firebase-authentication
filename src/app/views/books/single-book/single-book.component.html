@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row justify-content-center" style="margin-top: 150px;">
+        <h1 class="text-center">Titre du livre: {{ book.title }}</h1>
+        <h2 class="text-center">Auteur: {{ book.author }}</h2>
+    </div>
+    <div class="text-center" style="margin-top: 10px;">
+        <img *ngIf="book.url" [src]="book.url" style="max-height: 300px;">
+    </div>
+    <div class="text-center" style="margin-top: 10px;">
+        <button class="btn btn-primary" style="margin-right: 10px;"(click)="onBack()">Retour</button>
+        <button class="btn btn-primary" (click)="editBook()">Modifier contenu</button>
+        <button class="btn btn-primary" (click)="addBooktoUser()" style="margin-left: 10px;">Ajouter le livre</button>
+    </div>
+</div>
