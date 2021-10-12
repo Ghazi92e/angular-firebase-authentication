@@ -25,7 +25,7 @@ export class UploadFileService {
         storageRef.getDownloadURL().subscribe(downloadURL => {
           console.log('File available at', downloadURL);
           fileUpload.url = downloadURL;
-          fileUpload.name = fileUpload.file.name;
+          /*fileUpload.key = fileUpload.file.name;*/
           this.saveFileData(fileUpload);
         });
       })
@@ -56,7 +56,7 @@ export class UploadFileService {
   deleteFileUpload(fileUpload: FileUpload) {
     this.deleteFileDatabase(fileUpload.key)
       .then(() => {
-        this.deleteFileStorage(fileUpload.name);
+        this.deleteFileStorage(fileUpload.url);
       })
       .catch((error: any) => console.log(error));
   }
