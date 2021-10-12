@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" style="margin-right: 70px;" href="/books">
+            <img src="favicon.ico" width="30" height="30" class="d-inline-block align-top" alt="">
+            BooksApp
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li routerLinkActive="active" *ngIf="!ngAuthService.user">
+                    <a routerLink="sign-up" class="nav-item nav-link">Créer un compte</a>
+                </li>
+                <li routerLinkActive="active" *ngIf="!ngAuthService.user">
+                    <a routerLink="sign-in" class="nav-item nav-link">Connexion</a>
+                </li>
+                <li routerLinkActive="active" *ngIf="ngAuthService.user">
+                    <a routerLink="books" class="nav-item nav-link">Livres</a>
+                </li>
+            </ul>
+
+            <form class="d-flex">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown" routerLinkAcrive="active" *ngIf="ngAuthService.user">
+                        <a class="nav-link" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li routerLinkActive="active" *ngIf="ngAuthService.user">
+                                <a routerLink="usersbooks" class="nav-item nav-link"> Mes Livres</a>
+                            </li>
+                            <li routerLinkActive="active" *ngIf="ngAuthService.user">
+                                <a routerLink="dashboard" class="nav-item nav-link">Dashboard</a>
+                            </li>
+                            <li class="d-flex" routerLinkActive="active" *ngIf="ngAuthService.user">
+                                <a class="nav-item nav-link" (click)="ngAuthService.SignOut()">
+                                    Sign Out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</nav>
