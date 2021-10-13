@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 import { Book } from 'src/app/_models/Book.model';
 import { BooksService } from 'src/app/_services/books.service';
@@ -16,12 +17,14 @@ export class BookListComponent implements OnInit, OnDestroy {
   booksSubscription: Subscription = new Subscription;
 
   
-  constructor(private booksService: BooksService, private uploadService: UploadFileService, private router: Router) { }
+  constructor(private booksService: BooksService, private uploadService: UploadFileService, private router: Router, private SpinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.SpinnerService.show();
     this.booksSubscription = this.booksService.booksSubject.subscribe(
       (books: Book[]) => {
         this.books = books;
+        this.SpinnerService.hide();
       }
     );
     this.booksService.getBooks();

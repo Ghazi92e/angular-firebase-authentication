@@ -28,6 +28,9 @@ import { CreateBookComponent } from './views/books/create-book/create-book.compo
 import { UserBookComponent } from './views/users/user-book/user-book.component';
 import { UsersService } from './_services/users.service';
 import { UserBookItemComponent } from './views/users/user-book-item/user-book-item.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,8 +59,11 @@ import { UserBookItemComponent } from './views/users/user-book-item/user-book-it
     ReactiveFormsModule,
     HttpClientModule,
     AngularFireDatabaseModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [NgAuthService, BooksService, UploadFileService, UsersService],
   bootstrap: [AppComponent]
 })
