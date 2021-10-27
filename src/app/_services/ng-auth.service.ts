@@ -3,7 +3,10 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/compat/firestore";
 import { Router } from "@angular/router";
 import firebase from "firebase/compat/app";
-import 'firebase/auth'
+import 'firebase/auth';
+import { getAuth, updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
+
 
 export interface User {
     uid: string;
@@ -18,7 +21,7 @@ export interface User {
 })
 
 export class NgAuthService {
-    user: any;
+    userAuth: any;
 
     constructor(
         public afs: AngularFirestore,
@@ -27,9 +30,9 @@ export class NgAuthService {
         public ngZone: NgZone
     ) {
         this.afAuth.authState.subscribe(user => {
-          this.user = user;
+          this.userAuth = user;
             if (user) {
-                localStorage.setItem('user', JSON.stringify(this.user));
+                localStorage.setItem('user', JSON.stringify(this.userAuth));
                 JSON.parse(localStorage.getItem('user') || '{}');
             } else {
                 localStorage.setItem('user', 'null');
@@ -65,6 +68,15 @@ export class NgAuthService {
         .then(() => {
           this.router.navigate(['email-verification']);
         })
+    }
+
+    UpdateUser(displayName: string) {
+      updateProfile(this.userAuth, { displayName: displayName}).then(() => {
+        this.router.navigate(['dashboard']);
+        Swal.fire('Bravo', 'Votre profil a été modifié', 'success');
+      }).catch((error) => {
+        Swal.fire('Erreur', error, 'error');
+      })
     }
     
     
