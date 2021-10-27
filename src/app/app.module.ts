@@ -31,6 +31,7 @@ import { UserBookItemComponent } from './views/users/user-book-item/user-book-it
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditUserComponent } from './views/authentication/edit-user/edit-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +48,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BookItemsComponent,
     CreateBookComponent,
     UserBookComponent,
-    UserBookItemComponent
+    UserBookItemComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
