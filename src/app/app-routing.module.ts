@@ -11,13 +11,16 @@ import { SignInComponent } from './views/authentication/sign-in/sign-in.componen
 import { SignUpComponent } from './views/authentication/sign-up/sign-up.component';
 import { UserBookComponent } from './views/users/user-book/user-book.component';
 import { VerifyEmailComponent } from './views/authentication/verify-email/verify-email.component';
+import { EditUserComponent } from './views/authentication/edit-user/edit-user.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+  // { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+  { path: '', component: BookListComponent, canActivate: [AuthGuard]},
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'edit-user', component: EditUserComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'email-verification', component: VerifyEmailComponent },
   { path: 'books', component: BookListComponent, canActivate: [AuthGuard] },
