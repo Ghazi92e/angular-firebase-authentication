@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
+import { Book } from 'src/app/_models/Book.model';
 import { User } from 'src/app/_models/User.model';
+import { BooksService } from 'src/app/_services/books.service';
+import { NgAuthService } from 'src/app/_services/ng-auth.service';
 import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
@@ -10,20 +14,32 @@ import { UsersService } from 'src/app/_services/users.service';
 })
 export class UserBookComponent implements OnInit {
   
-  users: User[] = [];
+  user: User | any;
+  userSubscription: Subscription = new Subscription;
 
-
-  constructor(private userService: UsersService, private SpinnerService: NgxSpinnerService) { }
+  constructor(private userService: UsersService, private SpinnerService: NgxSpinnerService, private booksService: BooksService, private ngAuthService: NgAuthService) { }
 
   ngOnInit(): void {
+    this.user = new User();
     this.SpinnerService.show()
-    this.userService.booksSubject.subscribe(
-      (users: User[]) => {
-        this.users = users;
+    this.userSubscription = this.userService.userSubject.subscribe(
+      (user: User) => {
+        this.user = user;
+        console.log(this.user);
         this.SpinnerService.hide();
       }
     );
-    this.userService.getUsers();
+    if (this.ngAuthService.userAuth.uid !== null) {
+      this.userService.getUsers();
+    }
+  }
+
+  removeBook(idbookindex: number) {
+    this.userService.removeBookUser(idbookindex);
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 
 }

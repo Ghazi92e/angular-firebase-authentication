@@ -11,32 +11,22 @@ import { UsersService } from 'src/app/_services/users.service';
   styleUrls: ['./user-book-item.component.css']
 })
 export class UserBookItemComponent implements OnInit {
-
+  
   @Input() user: User | any;
   book: Book | any;
-
 
   constructor(private booksService: BooksService, private ngAuthService: NgAuthService, private userService: UsersService) { }
 
   ngOnInit(): void {
-
-    if(this.user.id == this.ngAuthService.user.uid) {
-      this.book = new Book('','');
-      const id = this.user.book;
-      console.log("salut c'est l'id" + id);
+    this.book = new Book('','');
+    if (this.user) {
+      const id = this.user;
+      console.log("user book id" + this.user);
       this.booksService.getSingleBook(+id).then(
         (book) => {
           this.book = book;
-          console.log(this.book);
         }
       );
-    } else {
-      console.log("erreur d'utilisateur");
     }
-  }
-
-
-  onDeleteBook(user: User) {
-    this.userService.removeUser(user);
   }
 }
