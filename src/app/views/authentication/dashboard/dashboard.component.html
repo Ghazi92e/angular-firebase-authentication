@@ -1,6 +1,6 @@
 <div class="container mt-5" style="max-width: 600px">
 
-    <div class="row" *ngIf="ngAuthService.user as user">
+    <div class="row" *ngIf="ngAuthService.userAuth as user">
       <div class="media">
         <img class="align-self-start mr-5 img-thumbnail rounded-circle"
           src="{{(user.photoURL) ? user.photoURL : '/assets/dummy.jpg'}}" alt="{{user.displayName}}">
@@ -11,4 +11,5 @@
         </div>
       </div>
     </div>
+    <div class="btn btn-primary" style="cursor: pointer; padding-left: 5px;" routerLink="/edit-user">Editer mon compte</div>
 </div>

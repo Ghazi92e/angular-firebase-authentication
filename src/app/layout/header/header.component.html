@@ -9,20 +9,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li routerLinkActive="active" *ngIf="!ngAuthService.user">
+                <li routerLinkActive="active" *ngIf="!ngAuthService.userAuth">
                     <a routerLink="sign-up" class="nav-item nav-link">Créer un compte</a>
                 </li>
-                <li routerLinkActive="active" *ngIf="!ngAuthService.user">
+                <li routerLinkActive="active" *ngIf="!ngAuthService.userAuth">
                     <a routerLink="sign-in" class="nav-item nav-link">Connexion</a>
                 </li>
-                <li routerLinkActive="active" *ngIf="ngAuthService.user">
+                <li routerLinkActive="active" *ngIf="ngAuthService.userAuth">
                     <a routerLink="books" class="nav-item nav-link">Livres</a>
                 </li>
             </ul>
 
             <form class="d-flex">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown" routerLinkAcrive="active" *ngIf="ngAuthService.user">
+                    <li class="nav-item dropdown" routerLinkAcrive="active" *ngIf="ngAuthService.userAuth">
                         <a class="nav-link" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -30,13 +30,13 @@
                             </svg>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li routerLinkActive="active" *ngIf="ngAuthService.user">
+                            <li routerLinkActive="active" *ngIf="ngAuthService.userAuth">
                                 <a routerLink="usersbooks" class="nav-item nav-link"> Mes Livres</a>
                             </li>
-                            <li routerLinkActive="active" *ngIf="ngAuthService.user">
+                            <li routerLinkActive="active" *ngIf="ngAuthService.userAuth">
                                 <a routerLink="dashboard" class="nav-item nav-link">Dashboard</a>
                             </li>
-                            <li class="d-flex" routerLinkActive="active" *ngIf="ngAuthService.user">
+                            <li class="d-flex" routerLinkActive="active" *ngIf="ngAuthService.userAuth">
                                 <a class="nav-item nav-link" (click)="ngAuthService.SignOut()">
                                     Sign Out
                                 </a>
