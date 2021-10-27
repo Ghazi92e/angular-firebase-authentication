@@ -1,6 +1,8 @@
 export class User {
     id: string | any;
-    book: string | any;
-
-    constructor() {}
+    name: string | any;
+    email: string | any;
+    
+    constructor() {
+    }
 }
