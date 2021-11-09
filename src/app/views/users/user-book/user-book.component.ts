@@ -25,17 +25,20 @@ export class UserBookComponent implements OnInit {
     this.userSubscription = this.userService.userSubject.subscribe(
       (user: User) => {
         this.user = user;
-        console.log(this.user);
+        // console.log(this.user);
         this.SpinnerService.hide();
       }
     );
-    if (this.ngAuthService.userAuth.uid !== null) {
-      this.userService.getUsers();
-    }
+    this.userService.getUser();
   }
 
   removeBook(idbookindex: number) {
     this.userService.removeBookUser(idbookindex);
+    if (this.user.bookids) {
+      let data = this.user.bookids.join('').split('');
+      this.userService.addbookidsUser(data);
+      console.log(data);
+    };
   }
 
   ngOnDestroy() {
