@@ -2,55 +2,55 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AngularFireDatabase } from "@angular/fire/compat/database";
 import { User } from '../_models/User.model';
+import { NgAuthService } from './ng-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  users: User[] = []; 
-  booksSubject = new Subject<User[]>();
+  user: User = new User;
+  userSubject = new Subject<User>();
 
   constructor(
     private afDatabase: AngularFireDatabase,
+    private ngAuthService: NgAuthService
 
   ) { }
 
-  emitUsers() {
-    this.booksSubject.next(this.users);
+  emitUser() {
+    this.userSubject.next(this.user);
   }
 
 
-  saveUsers() {
-    this.afDatabase.database.ref('/users').set(this.users);
+  saveUser() {
+    this.afDatabase.database.ref('/users').set(this.user);
   }
 
-
-  createNewUser(newUser: User) {
-    this.users.push(newUser);
-    this.saveUsers();
+  addUser(user: User) {
+    this.afDatabase.database.ref('/users/' + this.ngAuthService.userAuth.uid).set(user);
   }
 
-  getUsers() {
-    this.afDatabase.database.ref('/users')
-      .on('value', (data) => {
-        this.users = data.val() ? data.val() : [];
-        this.emitUsers();
+  addbookidsUser(addidbook: string[] = []) {
+    this.afDatabase.database.ref('/users/' + this.ngAuthService.userAuth.uid + '/bookids').set(addidbook);
+  }
+
+  getUser() {
+    this.afDatabase.database.ref('/users/' + 'fnceL3JfqzgdVPLiRi5dHekMj2y1')
+    .on('value', (data) => {
+      this.user = data.val() ? data.val() : [];
+      this.emitUser();
+    })
+  }
+
+  removeBookUser(id: number) {
+    var adaRef = this.afDatabase.database.ref('/users/' + this.ngAuthService.userAuth.uid + '/bookids/' + id);
+    adaRef.remove()
+      .then(function() {
+        console.log("Remove succeeded.")
       })
-  }
-
-  removeUser(user: User) {
-    const userIndexToRemove = this.users.findIndex(
-      (bookEl) => {
-        if(bookEl === user) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    );
-    this.users.splice(userIndexToRemove, 1);
-    this.saveUsers();
-    this.emitUsers();
+      .catch(function(error) {
+        console.log("Remove failed: " + error.message)
+      });
   }
 }
