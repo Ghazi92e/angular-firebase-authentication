@@ -1,8 +1,15 @@
 <div class="container">
     <div class="row">
         <h1 class="text-center" style="padding-bottom: 60px; padding-top: 60px;">Livres</h1>
-        <div class="col" *ngFor="let book of books; let i = index" (click)="onViewBook(i)">
-            <app-book-item [book]="book"></app-book-item>
+        <div class="col text-center" *ngFor="let book of books; let i = index">
+            <div (click)="onViewBook(i)">
+                <app-book-item [book]="book"></app-book-item>
+            </div>
+            <button *ngIf="user.bookids && !user.bookids.includes(i.toString())" class="btn btn-primary" (click)="addidbooktoUser(i.toString())">Ajouter le livre</button>
+            <button *ngIf="!user.bookids" class="btn btn-primary" (click)="addidbooktoUser(i.toString())">Ajouter le livre</button>
+            <button class="btn btn-danger" (click)="onDeleteBook(book)">
+                <span class="glyphicon glyphicon-minus"></span>
+            </button>
         </div>
     </div>
     <div style="padding-top: 30px; padding-bottom: 30px;">
