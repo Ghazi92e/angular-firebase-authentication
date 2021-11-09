@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { Book } from '../_models/Book.model';
 import { AngularFireDatabase } from "@angular/fire/compat/database";
 import { Subject } from 'rxjs';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Observable } from 'rxjs';
-import { UploadFileService } from './upload-file.service';
 
 
 
