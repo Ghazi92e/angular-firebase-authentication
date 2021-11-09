@@ -1,5 +1,1 @@
-<div class="text-center book-block">
-    <img style="border-radius: 10px; max-height: 300px;" *ngIf="book.url" [src]="book.url">
-    <p>{{ book.title }}</p>
-    <p>{{ book.author }}</p>
-</div>
+<app-book-item [book]="book"></app-book-item>
