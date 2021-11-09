@@ -50,16 +50,6 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.booksService.getBooks();
   }
 
-  delbook(indexbook: number) {
-    const index = this.user.bookids.indexOf(indexbook);
-    if (index > -1) {
-      this.user.bookids.splice(index, 1);
-      this.userService.removeBookUser(index);
-    }
-    this.router.navigate(['/books']);
-    Swal.fire('Bravo !', "Votre livre a bien été supprimé", 'success');
-  }
-
   addidbooktoUser(id: string) {
     if (this.user.bookids) {
       for (var value of this.user.bookids) {
