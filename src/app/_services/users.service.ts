@@ -9,7 +9,7 @@ import { NgAuthService } from './ng-auth.service';
 })
 export class UsersService {
 
-  user: User = new User;
+  user: User = new User();
   userSubject = new Subject<User>();
 
   constructor(
@@ -22,21 +22,12 @@ export class UsersService {
     this.userSubject.next(this.user);
   }
 
-
-  saveUser() {
-    this.afDatabase.database.ref('/users').set(this.user);
-  }
-
-  addUser(user: User) {
+  updateUser(user: User) {
     this.afDatabase.database.ref('/users/' + this.ngAuthService.userAuth.uid).set(user);
   }
 
-  addbookidsUser(addidbook: string[] = []) {
-    this.afDatabase.database.ref('/users/' + this.ngAuthService.userAuth.uid + '/bookids').set(addidbook);
-  }
-
-  getUser() {
-    this.afDatabase.database.ref('/users/' + 'fnceL3JfqzgdVPLiRi5dHekMj2y1')
+  getUser(useruid: string) {
+    this.afDatabase.database.ref('/users/' + useruid)
     .on('value', (data) => {
       this.user = data.val() ? data.val() : [];
       this.emitUser();
