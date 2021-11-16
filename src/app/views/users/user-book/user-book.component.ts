@@ -1,10 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
-import { Book } from 'src/app/_models/Book.model';
 import { User } from 'src/app/_models/User.model';
-import { BooksService } from 'src/app/_services/books.service';
-import { NgAuthService } from 'src/app/_services/ng-auth.service';
 import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
@@ -14,30 +12,34 @@ import { UsersService } from 'src/app/_services/users.service';
 })
 export class UserBookComponent implements OnInit {
   
-  user: User | any;
+  user: User = new User();
   userSubscription: Subscription = new Subscription;
 
-  constructor(private userService: UsersService, private SpinnerService: NgxSpinnerService, private booksService: BooksService, private ngAuthService: NgAuthService) { }
+  constructor(private userService: UsersService, 
+              private SpinnerService: NgxSpinnerService,
+              public afAuth: AngularFireAuth) { }
 
   ngOnInit(): void {
-    this.user = new User();
+    this.afAuth.authState.subscribe(user => {
+      if (user && user.uid) {
+        this.userService.getUser(user.uid);
+      }
+    });
+
     this.SpinnerService.show()
     this.userSubscription = this.userService.userSubject.subscribe(
       (user: User) => {
         this.user = user;
-        // console.log(this.user);
         this.SpinnerService.hide();
       }
     );
-    this.userService.getUser();
   }
 
   removeBook(idbookindex: number) {
     this.userService.removeBookUser(idbookindex);
     if (this.user.bookids) {
-      let data = this.user.bookids.join('').split('');
-      this.userService.addbookidsUser(data);
-      console.log(data);
+      this.user.bookids = this.user.bookids.join('').split('');
+      this.userService.updateUser(this.user);
     };
   }
 
