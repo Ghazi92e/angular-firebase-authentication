@@ -11,5 +11,5 @@
         </div>
       </div>
     </div>
-    <div class="btn btn-primary" style="cursor: pointer; padding-left: 5px;" routerLink="/edit-user">Editer mon compte</div>
+    <div class="btn btn-primary" style="cursor: pointer; padding-left: 5px;" routerLink="/edit-user" *ngIf="ngAuthService.userAuth as user">Editer mon compte</div>
 </div>
