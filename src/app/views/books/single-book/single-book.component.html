@@ -8,14 +8,12 @@
     </div>
     <div class="text-center" style="margin-top: 10px;">
         <button class="btn btn-primary" style="margin-right: 10px;"(click)="onBack()">Retour</button>
-        <button class="btn btn-primary" (click)="editBook()">Modifier contenu</button>
+        <button class="btn btn-primary"  style="margin-right: 10px;" (click)="editBook()" *ngIf="useremail == 'ghaziatie@gmail.com'">Modifier contenu</button>
 
-        <div *ngIf="checkdoublebook == false;then add_book_user else delete_book_user"></div>
-        <ng-template #add_book_user>
-            <button class="btn btn-primary" (click)="addidbooktoUser()" style="margin-left: 10px;">Ajouter le livre</button>
-        </ng-template>
-        <ng-template #delete_book_user>
-                <button class="btn btn-danger" (click)="delbook(id)" style="margin-left: 10px;">Supprimer le livre</button>
-        </ng-template>
-    </div>
+        <button *ngIf="user.bookids && !user.bookids.includes(id)" class="btn btn-primary" (click)="addidbooktoUser(id)">Ajouter le livre</button>
+        <button *ngIf="!user.bookids" class="btn btn-primary" (click)="addidbooktoUser(id)" style="margin-left: 10px;">Ajouter le livre</button>
+        <span *ngFor="let bookids of user.bookids">
+            <button *ngIf="bookids == id" class="btn btn-danger" (click)="delbook(id)">Supprimer le livre</button>
+        </span>
+    <div>
 </div>
