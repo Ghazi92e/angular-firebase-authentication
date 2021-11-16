@@ -1,6 +1,7 @@
 export class User {
-    name: string | undefined;
-    email: string | undefined;
+    name: string | any;
+    email: string | any;
+    bookids: string[] = [];
     constructor() {
     }
 }
