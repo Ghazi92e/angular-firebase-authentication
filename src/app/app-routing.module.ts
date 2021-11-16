@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'edit-user', component: EditUserComponent },
+  { path: 'edit-user', component: EditUserComponent, canActivate: [AuthGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'email-verification', component: VerifyEmailComponent },
   { path: 'books', component: BookListComponent, canActivate: [AuthGuard] },
