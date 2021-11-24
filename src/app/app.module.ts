@@ -27,7 +27,6 @@ import { BookItemsComponent } from './layout/book-item/book-item.component';
 import { CreateBookComponent } from './views/books/create-book/create-book.component';
 import { UserBookComponent } from './views/users/user-book/user-book.component';
 import { UsersService } from './_services/users.service';
-import { UserBookItemComponent } from './views/users/user-book-item/user-book-item.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -48,7 +47,6 @@ import { EditUserComponent } from './views/authentication/edit-user/edit-user.co
     BookItemsComponent,
     CreateBookComponent,
     UserBookComponent,
-    UserBookItemComponent,
     EditUserComponent
   ],
   imports: [
