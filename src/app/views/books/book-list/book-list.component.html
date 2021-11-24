@@ -5,14 +5,14 @@
             <div (click)="onViewBook(i)">
                 <app-book-item [book]="book"></app-book-item>
             </div>
-            <button *ngIf="user.bookids && !user.bookids.includes(i.toString())" class="btn btn-primary" (click)="addidbooktoUser(i.toString())">Ajouter le livre</button>
+            <button *ngIf="user.bookids && !user.bookids.includes(idbook[i])" class="btn btn-primary" (click)="addidbooktoUser(i.toString())">Ajouter le livre</button>
             <button *ngIf="!user.bookids" class="btn btn-primary" (click)="addidbooktoUser(i.toString())">Ajouter le livre</button>
-            <button class="btn btn-danger" (click)="onDeleteBook(book)" *ngIf="useremail == 'ghaziatie@gmail.com'">
+            <button class="btn btn-danger" (click)="onDeleteBook(i)" *ngIf="this.user.email == 'ghaziatie@gmail.com'">
                 <span class="glyphicon glyphicon-minus"></span>
             </button>
         </div>
     </div>
-    <div style="padding-top: 30px; padding-bottom: 30px;" *ngIf="useremail == 'ghaziatie@gmail.com'">
+    <div style="padding-top: 30px; padding-bottom: 30px;" *ngIf="this.user.email == 'ghaziatie@gmail.com'">
         <button class="btn btn-primary" (click)="onNewBook()">Ajouter un livre</button>
     </div>
 </div>

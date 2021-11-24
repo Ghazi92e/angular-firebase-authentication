@@ -1,15 +1,14 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Subscription } from 'rxjs';
 import { Book } from 'src/app/_models/Book.model';
-import { User } from 'src/app/_models/User.model';
 import { BooksService } from 'src/app/_services/books.service';
-import { NgAuthService } from 'src/app/_services/ng-auth.service';
+import { NgAuthService, User} from 'src/app/_services/ng-auth.service';
 import { UploadFileService } from 'src/app/_services/upload-file.service';
 import { UsersService } from 'src/app/_services/users.service';
 import Swal from 'sweetalert2';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-book-list',
@@ -18,59 +17,69 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class BookListComponent implements OnInit, OnDestroy {
 
-  books: Book[] = [];
-  user: User = new User();
-  booksSubscription: Subscription = new Subscription;
-  userSubscription: Subscription = new Subscription;
-  useremail: string | any;
-  displayName: string | any;
+  // user: User = new User();
+  books: Book[] = []
+  useruid: string
+  idbook: string[] = []
+  user: User
 
   constructor(private booksService: BooksService,
               private uploadService: UploadFileService,
               private router: Router, 
               private SpinnerService: NgxSpinnerService,
-              public ngAuthService: NgAuthService, 
+              public ngAuthService: NgAuthService,
+              private afStore: AngularFirestore,
               private userService: UsersService,
               public afAuth: AngularFireAuth ) {
+                this.user = {
+                  uid: '',
+                  email: '',
+                  displayName: '',
+                  photoURL: '',
+                  emailVerified: false,
+                  bookids: []
+                };
+                
+                this.useruid = '';
               }
 
   ngOnInit(): void {
     this.afAuth.authState.subscribe(user => {
       if (user && user.uid) {
-        this.displayName = user.displayName;
-        this.useremail = user.email;
-        this.userService.getUser(user.uid);
-      }
+        this.useruid = user.uid;
+        this.getDataUser(this.useruid);
+      };
     });
+    if (this.user.bookids == null) {
+      this.user.bookids = []
+    }
+    this.getBookFirestore();
+  }
 
-    this.SpinnerService.show();
-    this.userSubscription = this.userService.userSubject.subscribe(
-      (user: User) => {
-        this.user = user;
-        this.SpinnerService.hide();
+  getBookFirestore(){
+    this.SpinnerService.show()
+    this.booksService.getBooksFirestore().then((data) => {
+     data.forEach((doc) => {
+        this.books.push(doc.data())
+        this.idbook.push(doc.id)
+      })
+      this.SpinnerService.hide()
+    })
+  }
+
+  getDataUser(userid: string) {
+    this.userService.getUserFirestore(userid).subscribe(
+      (user) => {
+        this.user = user.data()!;
+        console.log(this.user);
       }
     );
-
-    this.SpinnerService.show();
-    this.booksSubscription = this.booksService.booksSubject.subscribe(
-      (books: Book[]) => {
-        this.books = books;
-        this.SpinnerService.hide();
-      }
-    );
-    this.booksService.getBooks();
   }
 
   addidbooktoUser(id: string) {
-    if (this.user.bookids == null) {
-      this.user.bookids = [];
-      this.user.bookids.push(id);
-    } else {
-      this.user.bookids.push(id);
-    }
-    this.user.name = this.displayName;
-    this.user.email = this.useremail;
-    this.userService.updateUser(this.user);
+    this.user.bookids.push(this.idbook[+id])
+    this.userService.updateBookUser(this.user.bookids, this.useruid);
+    this.router.navigate(['/books']);
     Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
   }
 
@@ -82,13 +91,14 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/books', 'view', id]);
   }
 
-  onDeleteBook(book: Book) {
-    this.booksService.removeBook(book);
-    this.uploadService.deleteFileUpload(book)
+  onDeleteBook(id: number) {
+    if (id > -1) {
+      this.books.splice(id, 1);
+    }
+    this.booksService.deleteBookFirestore(this.idbook[id])
   }
 
   ngOnDestroy() {
-    this.booksSubscription.unsubscribe();
   }
 
 }
