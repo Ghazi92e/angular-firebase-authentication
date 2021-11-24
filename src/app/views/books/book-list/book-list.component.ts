@@ -1,14 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Book } from 'src/app/_models/Book.model';
 import { BooksService } from 'src/app/_services/books.service';
 import { NgAuthService} from 'src/app/_services/ng-auth.service';
-import { UploadFileService } from 'src/app/_services/upload-file.service';
 import { UsersService } from 'src/app/_services/users.service';
 import Swal from 'sweetalert2';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from 'src/app/_models/User.model';
 
 
@@ -18,25 +16,23 @@ import { User } from 'src/app/_models/User.model';
   styleUrls: ['./book-list.component.css']
 })
 
-export class BookListComponent implements OnInit, OnDestroy {
+export class BookListComponent implements OnInit {
 
-  // user: User = new User();
   books: Book[] = []
   useruid: string
   idbook: string[] = []
   user: User
 
   constructor(private booksService: BooksService,
-              private uploadService: UploadFileService,
               private router: Router, 
               private SpinnerService: NgxSpinnerService,
               public ngAuthService: NgAuthService,
-              private afStore: AngularFirestore,
               private userService: UsersService,
               public afAuth: AngularFireAuth ) {
                 this.user = {
                   bookids: [],
-                  email: ''
+                  email: '',
+                  displayName: ''
                 };
                 this.useruid = '';
               }
@@ -46,12 +42,10 @@ export class BookListComponent implements OnInit, OnDestroy {
       if (user && user.uid) {
         this.useruid = user.uid;
         this.user.email = user.email!;
+        this.user.displayName = user.displayName!;
         this.getDataUser(this.useruid);
       };
     });
-    if (this.user.bookids == null) {
-      this.user.bookids = []
-    }
     this.getBookFirestore();
   }
 
@@ -104,9 +98,5 @@ export class BookListComponent implements OnInit, OnDestroy {
     }
     this.booksService.deleteBookFirestore(this.idbook[id])
   }
-
-  ngOnDestroy() {
-  }
-
 }
 
