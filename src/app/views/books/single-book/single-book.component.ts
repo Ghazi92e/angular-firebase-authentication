@@ -33,7 +33,8 @@ export class SingleBookComponent implements OnInit {
               {
                 this.user = {
                   bookids: [],
-                  email: ''
+                  email: '',
+                  displayName: ''
                 };
                 this.book = {
                   title: '',
@@ -48,6 +49,7 @@ export class SingleBookComponent implements OnInit {
       if (user && user.uid) {
         this.useruid = user.uid;
         this.user.email = user.email!;
+        this.user.displayName = user.displayName!;
         this.getDataUser(this.useruid);
       }
     });

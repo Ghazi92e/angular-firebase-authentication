@@ -28,7 +28,8 @@ export class UserBookComponent implements OnInit {
               {
                 this.user = {
                   bookids: [],
-                  email: ''
+                  email: '',
+                  displayName: ''
                 };
                 this.useruid = ''
               }
@@ -37,6 +38,7 @@ export class UserBookComponent implements OnInit {
     this.afAuth.authState.subscribe(user => {
       if (user && user.uid) {
         this.useruid = user.uid
+        this.user.displayName = user.displayName!
         this.getDataUser(this.useruid)
       }
     });
