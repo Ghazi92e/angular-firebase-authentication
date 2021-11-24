@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -13,7 +12,7 @@ export class UploadFileService {
   private basePath = '/uploads';
   downloadURL: Observable<string> | any;
 
-  constructor(private db: AngularFireDatabase, private storage: AngularFireStorage) { }
+  constructor(private storage: AngularFireStorage) { }
 
   pushFileToStorage(fileUpload: FileUpload): Observable<any> {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
@@ -25,8 +24,6 @@ export class UploadFileService {
         storageRef.getDownloadURL().subscribe(downloadURL => {
           console.log('File available at', downloadURL);
           fileUpload.url = downloadURL;
-          /*fileUpload.key = fileUpload.file.name;*/
-          this.saveFileData(fileUpload);
         });
       })
     ).subscribe();
@@ -34,10 +31,6 @@ export class UploadFileService {
     return uploadTask.percentageChanges();
   }
 
-  private saveFileData(fileUpload: FileUpload) {
-    this.db.list(this.basePath).push(fileUpload);
-  }
-  
   uploadFileUrl(event: any) {
     const file = event.target.files[0];
     const filePath = '/uploads';
@@ -48,21 +41,9 @@ export class UploadFileService {
       finalize(() => this.downloadURL = fileRef.getDownloadURL())
     ).subscribe();
   }
-  
-  getFileUploads(numberItems: number): AngularFireList<any> {
-    return this.db.list(this.basePath, ref => ref.limitToLast(numberItems));
-  }
 
   deleteFileUpload(fileUpload: FileUpload) {
-    this.deleteFileDatabase(fileUpload.key)
-      .then(() => {
-        this.deleteFileStorage(fileUpload.url);
-      })
-      .catch((error: any) => console.log(error));
-  }
-
-  private deleteFileDatabase(key: string) {
-    return this.db.list(this.basePath).remove(key);
+    this.deleteFileStorage(fileUpload.url);
   }
 
   private deleteFileStorage(name: string) {
