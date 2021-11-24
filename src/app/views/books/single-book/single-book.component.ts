@@ -19,8 +19,6 @@ export class SingleBookComponent implements OnInit {
 
   book: Book
   user: User
-  useremail: string
-  displayName: string
   useruid: string
   idbook: string[] = []
   id = this.route.snapshot.params['id'];
@@ -43,16 +41,13 @@ export class SingleBookComponent implements OnInit {
                   url: ''
                 }
                 this.useruid = ''
-                this.displayName = ''
-                this.useremail = ''
               }
 
   ngOnInit() {
     this.afAuth.authState.subscribe(user => {
       if (user && user.uid) {
         this.useruid = user.uid;
-        this.displayName = user.displayName!;
-        this.useremail = user.email!;
+        this.user.email = user.email!;
         this.getDataUser(this.useruid);
       }
     });
