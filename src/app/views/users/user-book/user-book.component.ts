@@ -3,8 +3,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Book } from 'src/app/_models/Book.model';
+import { User } from 'src/app/_models/User.model';
 import { BooksService } from 'src/app/_services/books.service';
-import { User } from 'src/app/_services/ng-auth.service';
 import { UsersService } from 'src/app/_services/users.service';
 import Swal from 'sweetalert2';
 
@@ -27,12 +27,8 @@ export class UserBookComponent implements OnInit {
               public afAuth: AngularFireAuth) 
               {
                 this.user = {
-                  uid: '',
-                  email: '',
-                  displayName: '',
-                  photoURL: '',
-                  emailVerified: false,
-                  bookids: []
+                  bookids: [],
+                  email: ''
                 };
                 this.useruid = ''
               }
@@ -44,12 +40,6 @@ export class UserBookComponent implements OnInit {
         this.getDataUser(this.useruid)
       }
     });
-
-    // this.booksService.getBooksFirestore().then((data) => {
-    //   data.forEach((docbookid) => {
-    //     this.idbook.push(docbookid.id)
-    //   })
-    // })
   }
 
   getDataUser(userid: string) {
@@ -57,11 +47,15 @@ export class UserBookComponent implements OnInit {
     this.userService.getUserFirestore(userid).subscribe(
       (user) => {
         this.user = user.data()!;
-        for (const value of this.user.bookids){
-          this.booksService.getSingleBookFirestore(value).then((doc) => {
-            this.books.push(doc.data()!)
-          })
-        }
+          if (this.user.bookids == null) {
+            this.user.bookids = []
+          } else {
+            for (const value of this.user.bookids) {
+              this.booksService.getSingleBookFirestore(value).then((doc) => {
+                this.books.push(doc.data()!)
+              })
+            }
+          }
         this.SpinnerService.hide()
       }
     );
