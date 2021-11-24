@@ -13,5 +13,5 @@
         <button *ngIf="user.bookids && !user.bookids.includes(idbook[id])" class="btn btn-primary" (click)="addidbooktoUser(id)">Ajouter le livre</button>
         <button *ngIf="user.bookids.includes(idbook[id])" class="btn btn-danger" (click)="delbook(idbook[id])">Supprimer le livre</button>
     <div>
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
 </div>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
