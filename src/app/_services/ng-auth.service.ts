@@ -3,10 +3,6 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/compat/firestore";
 import { Router } from "@angular/router";
 import firebase from "firebase/compat/app";
-import { updateProfile } from "firebase/auth";
-import Swal from "sweetalert2";
-
-
 export interface User {
     uid: string;
     email: string;
@@ -68,15 +64,6 @@ export class NgAuthService {
       .then(() => {
         this.router.navigate(['email-verification']);
       })
-    }
-
-    UpdateUser(displayName: string) {
-      updateProfile(this.userAuth, { displayName: displayName}).then(() => {
-        this.router.navigate(['dashboard']);
-          Swal.fire('Bravo', 'Votre profil a été modifié', 'success');
-        }).catch((error) => {
-          Swal.fire('Erreur', error, 'error');
-        })
     }
 
     ForgotPassword(passwordResetEmail: string) {
