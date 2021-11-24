@@ -16,20 +16,21 @@ import Swal from 'sweetalert2';
 export class EditBookComponent implements OnInit {
 
   book: Book | any;
+  idbook: string[] = []
+  id = this.route.snapshot.params['id'];
   
-  constructor(private formBuilder: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private uploadService: UploadFileService,
+  constructor(private route: ActivatedRoute,
               private booksService: BooksService) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    this.booksService.getSingleBook(+id).then(
-      (book) => {
-        this.book = book;
-        console.log(this.book)
-      }
-    );
+
+    this.booksService.getBooksFirestore().then((data) => {
+      data.forEach((docbookid) => {
+        this.idbook.push(docbookid.id)
+        this.booksService.getSingleBookFirestore(this.idbook[this.id]).then((doc) => {
+          this.book = doc.data()!
+        })
+      })
+    })
   }
 }
