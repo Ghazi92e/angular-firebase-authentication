@@ -1,7 +1,11 @@
 export class Book {
-    url: string | undefined;
-    key: string | any;
-    file: File | any;
+    title: string
+    author: string
+    url: string
 
-    constructor(public title: string, public author: string) {}
+    constructor() {
+        this.title = ''
+        this.author = ''
+        this.url = ''
+    }
 }
