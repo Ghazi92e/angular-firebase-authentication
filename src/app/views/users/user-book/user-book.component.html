@@ -2,9 +2,9 @@
     <div class="row">
         <h1 class="text-center" style="padding-bottom: 60px; padding-top: 60px;">Mes livres</h1>
         <h2 class="text-center" *ngIf="!user.bookids">Vous n'avez pas de livre</h2>
-        <div class="col text-center" *ngFor="let bookids of user.bookids; let idbookindex = index">
-            <app-user-book-item [user]="bookids"></app-user-book-item>
-            <button class="btn btn-danger" *ngIf="bookids" (click)="removeBook(idbookindex)">
+        <div class="col text-center" *ngFor="let data of books; let idbookindex = index">
+            <app-book-item [book]="data"></app-book-item>
+            <button class="btn btn-danger" *ngIf="data" (click)="removeUserBook(idbookindex)">
                 <span class="glyphicon glyphicon-minus text-center">Supprimer le livre</span>
             </button>
         </div>
