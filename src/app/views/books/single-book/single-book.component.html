@@ -10,8 +10,8 @@
         <button class="btn btn-primary" style="margin-right: 10px;"(click)="onBack()">Retour</button>
         <button class="btn btn-primary"  style="margin-right: 10px;" (click)="editBook()" *ngIf="this.user.email == 'ghaziatie@gmail.com'">Modifier contenu</button>
 
-        <button *ngIf="user.bookids && !user.bookids.includes(idbook[id])" class="btn btn-primary" (click)="addidbooktoUser(id)">Ajouter le livre</button>
-        <button *ngIf="user.bookids.includes(idbook[id])" class="btn btn-danger" (click)="delbook(idbook[id])">Supprimer le livre</button>
+        <button *ngIf="!user.bookids?.includes(idbook[id])" class="btn btn-primary" (click)="addidbooktoUser(id)">Ajouter le livre</button>
+        <button *ngIf="user.bookids?.includes(idbook[id])" class="btn btn-danger" (click)="delbook(idbook[id])">Supprimer le livre</button>
     <div>
 </div>
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
