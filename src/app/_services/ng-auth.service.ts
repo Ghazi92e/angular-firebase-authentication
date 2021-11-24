@@ -13,7 +13,6 @@ export interface User {
     displayName: string;
     photoURL: string;
     emailVerified: boolean;
-    bookids: string[];
 }
 
 @Injectable({
@@ -47,7 +46,7 @@ export class NgAuthService {
           this.ngZone.run(() => {
             this.router.navigate(['dashboard']);
           });
-          // this.SetUserData(result.user);
+          this.SetUserData(result.user);
           }).catch((error) => {
             window.alert(error.message)
           })
@@ -99,10 +98,6 @@ export class NgAuthService {
       return this.AuthLogin(new firebase.auth.GoogleAuthProvider())
     }
 
-    GoogleSignInAuth() {
-      return this.AuthSignin(new firebase.auth.GoogleAuthProvider())
-    }
-
     AuthLogin(provider: firebase.auth.AuthProvider) {
       return this.afAuth.signInWithPopup(provider)
       .then((result) => {
@@ -110,17 +105,6 @@ export class NgAuthService {
           this.router.navigate(['dashboard']);
         })
           this.SetUserData(result.user);
-        }).catch((error) => {
-          window.alert(error)
-        })
-    }
-
-    AuthSignin(provider: firebase.auth.AuthProvider) {
-      return this.afAuth.signInWithPopup(provider)
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
-        })
         }).catch((error) => {
           window.alert(error)
         })
@@ -134,7 +118,6 @@ export class NgAuthService {
         displayName: user.displayName,
         photoURL: user.photoURL,
         emailVerified: user.emailVerified,
-        bookids: []
       }
       return userRef.set(userState, {
         merge: true
