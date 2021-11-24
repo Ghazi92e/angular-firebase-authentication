@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { User } from './ng-auth.service';
+import { User } from '../_models/User.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class UsersService {
     return this.userFire.doc(userid).get();
   }
 
-  updateBookUser(bookids: string[], userid: string) {
-    this.userFire.doc(userid).update({bookids});
+  updateBookUser(user: User, userid: string) {
+    this.userFire.doc(userid).set(user);
   }
 
   removebookUserfirestore(bookids: string[], userid: string) {
