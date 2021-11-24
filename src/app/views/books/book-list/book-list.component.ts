@@ -3,18 +3,21 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Book } from 'src/app/_models/Book.model';
 import { BooksService } from 'src/app/_services/books.service';
-import { NgAuthService, User} from 'src/app/_services/ng-auth.service';
+import { NgAuthService} from 'src/app/_services/ng-auth.service';
 import { UploadFileService } from 'src/app/_services/upload-file.service';
 import { UsersService } from 'src/app/_services/users.service';
 import Swal from 'sweetalert2';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { User } from 'src/app/_models/User.model';
+
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.css']
 })
+
 export class BookListComponent implements OnInit, OnDestroy {
 
   // user: User = new User();
@@ -32,14 +35,9 @@ export class BookListComponent implements OnInit, OnDestroy {
               private userService: UsersService,
               public afAuth: AngularFireAuth ) {
                 this.user = {
-                  uid: '',
-                  email: '',
-                  displayName: '',
-                  photoURL: '',
-                  emailVerified: false,
-                  bookids: []
+                  bookids: [],
+                  email: ''
                 };
-                
                 this.useruid = '';
               }
 
@@ -47,6 +45,7 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.afAuth.authState.subscribe(user => {
       if (user && user.uid) {
         this.useruid = user.uid;
+        this.user.email = user.email!;
         this.getDataUser(this.useruid);
       };
     });
@@ -77,10 +76,18 @@ export class BookListComponent implements OnInit, OnDestroy {
   }
 
   addidbooktoUser(id: string) {
-    this.user.bookids.push(this.idbook[+id])
-    this.userService.updateBookUser(this.user.bookids, this.useruid);
-    this.router.navigate(['/books']);
-    Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
+    if (this.user.bookids == null) {
+      this.user.bookids = []
+      this.user.bookids.push(this.idbook[+id])
+      this.userService.updateBookUser(this.user, this.useruid);
+      this.router.navigate(['/books']);
+      Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
+    } else {
+      this.user.bookids.push(this.idbook[+id])
+      this.userService.updateBookUser(this.user, this.useruid);
+      this.router.navigate(['/books']);
+      Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
+    }
   }
 
   onNewBook() {

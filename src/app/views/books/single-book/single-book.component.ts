@@ -3,8 +3,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Book } from 'src/app/_models/Book.model';
+import { User } from 'src/app/_models/User.model';
 import { BooksService } from 'src/app/_services/books.service';
-import { NgAuthService, User} from 'src/app/_services/ng-auth.service';
+import { NgAuthService } from 'src/app/_services/ng-auth.service';
 import { UsersService } from 'src/app/_services/users.service';
 import Swal from 'sweetalert2';
 
@@ -33,12 +34,8 @@ export class SingleBookComponent implements OnInit {
               private router: Router) 
               {
                 this.user = {
-                  uid: '',
-                  email: '',
-                  displayName: '',
-                  photoURL: '',
-                  emailVerified: false,
-                  bookids: []
+                  bookids: [],
+                  email: ''
                 };
                 this.book = {
                   title: '',
@@ -93,10 +90,18 @@ export class SingleBookComponent implements OnInit {
   }
 
   addidbooktoUser(id: string) {
-    this.user.bookids.push(this.idbook[+id]);
-    this.userService.updateBookUser(this.user.bookids, this.useruid);
-    this.router.navigate(['/books']);
-    Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
+    if (this.user.bookids == null) {
+      this.user.bookids = []
+      this.user.bookids.push(this.idbook[+id])
+      this.userService.updateBookUser(this.user, this.useruid);
+      this.router.navigate(['/books']);
+      Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
+    } else {
+      this.user.bookids.push(this.idbook[+id])
+      this.userService.updateBookUser(this.user, this.useruid);
+      this.router.navigate(['/books']);
+      Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
+    }
   }
 
   editBook() {
