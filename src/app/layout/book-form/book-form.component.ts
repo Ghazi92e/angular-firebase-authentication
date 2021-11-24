@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { snapshotChanges } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,8 +6,6 @@ import { Book } from 'src/app/_models/Book.model';
 import { FileUpload } from 'src/app/_models/Fileupload.model';
 import { BooksService } from 'src/app/_services/books.service';
 import { UploadFileService } from 'src/app/_services/upload-file.service';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +16,7 @@ import Swal from 'sweetalert2';
 export class BookFormComponent implements OnInit {
   /*@Input() book;*/
   /*@Input() book: Book | any;*/
-  _book: Book | any;
+  _book: Book
   @Input() set book(book: Book){
     console.log('set book');
     this._book = book;
@@ -30,9 +27,8 @@ export class BookFormComponent implements OnInit {
   fileUrl: string | any;
   currentFileUpload: FileUpload | any;
   selectedFiles: FileList | any;
-  downloadURL: Observable<string> | any;
   percentage: number | any;
-
+  idbook: string[] = []
 
 
   constructor(private formBuilder: FormBuilder,
@@ -40,10 +36,23 @@ export class BookFormComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private storage: AngularFireStorage,
-              private uploadService: UploadFileService) {}
+              private uploadService: UploadFileService) 
+              {
+                this._book = {
+                  title: '',
+                  author: '',
+                  url: ''
+                }
+              }
 
   ngOnInit(): void {
-    this.book = new Book('', ''); // crée un Book vide pour eviter les erreurs
+    // this._book = new Book()
+    this.initForm();
+    this.booksService.getBooksFirestore().then((data) => {
+      data.forEach((docbookid) => {
+        this.idbook.push(docbookid.id)
+      })
+    })
   }
 
   initForm() {
@@ -63,16 +72,18 @@ export class BookFormComponent implements OnInit {
   onSaveBook() {
     const title = this.bookForm?.get('title')?.value;
     const author = this.bookForm?.get('author')?.value;
-    const newBook = new Book(title, author);
+    this._book.title = title
+    this._book.author = author
     if(this.currentFileUpload && this.currentFileUpload !== '') {
-      newBook.url = this.currentFileUpload.url;
-    }
+      this._book.url = this.currentFileUpload.url;
+    } 
     if (this.route.snapshot.params['id']) {
       const id = this.route.snapshot.params['id'];
-      this.booksService.updateBook(id, newBook);
+      this.booksService.updateBook(this.idbook[id], this._book);
       this.router.navigate(['/books']);
     } else {
-      this.booksService.createNewBook(newBook);
+      console.log(this._book)
+      this.booksService.createNewBook(this._book);
       this.router.navigate(['/books']);
     }
   }
