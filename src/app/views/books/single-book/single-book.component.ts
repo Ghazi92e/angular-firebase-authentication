@@ -90,15 +90,12 @@ export class SingleBookComponent implements OnInit {
     if (this.user.bookids == null) {
       this.user.bookids = []
       this.user.bookids.push(this.idbook[+id])
-      this.userService.updateBookUser(this.user, this.useruid);
-      this.router.navigate(['/books']);
-      Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
     } else {
       this.user.bookids.push(this.idbook[+id])
-      this.userService.updateBookUser(this.user, this.useruid);
-      this.router.navigate(['/books']);
-      Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
     }
+    this.userService.updateBookUser(this.user, this.useruid);
+    this.router.navigate(['/books']);
+    Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
   }
 
   editBook() {
