@@ -61,7 +61,7 @@ export class BookListComponent implements OnInit {
   }
 
   getDataUser(userid: string) {
-    this.userService.getUserFirestore(userid).subscribe(
+    this.userService.getUserFirestore(userid).then(
       (user) => {
         this.user = user.data()!;
         console.log(this.user);

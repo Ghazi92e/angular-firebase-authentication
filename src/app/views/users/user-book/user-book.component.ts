@@ -46,7 +46,7 @@ export class UserBookComponent implements OnInit {
 
   getDataUser(userid: string) {
     this.SpinnerService.show()
-    this.userService.getUserFirestore(userid).subscribe(
+    this.userService.getUserFirestore(userid).then(
       (user) => {
         this.user = user.data()!;
           if (this.user.bookids == null) {

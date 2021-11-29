@@ -12,7 +12,7 @@ export class UsersService {
   constructor( private afStore: AngularFirestore ) { this.userFire = this.afStore.collection(this.dbPath) }
 
   getUserFirestore(userid: string) {
-    return this.userFire.doc(userid).get();
+    return this.userFire.doc(userid).ref.get();
   }
 
   updateBookUser(user: User, userid: string) {
