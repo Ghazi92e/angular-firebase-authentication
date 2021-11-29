@@ -68,7 +68,7 @@ export class UserBookComponent implements OnInit {
       this.books.splice(idbookindex, 1);
       this.user.bookids.splice(idbookindex, 1);
     }
-    this.userService.removebookUserfirestore(this.user.bookids, this.useruid);
+    this.userService.updateUser(this.user, this.useruid);
     Swal.fire('Bravo !', "Votre livre a bien été supprimé", 'success');
   }
 }

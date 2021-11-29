@@ -15,12 +15,8 @@ export class UsersService {
     return this.userFire.doc(userid).ref.get();
   }
 
-  updateBookUser(user: User, userid: string) {
+  updateUser(user: User, userid: string) {
     this.userFire.doc(userid).set(user);
-  }
-
-  removebookUserfirestore(bookids: string[], userid: string) {
-    this.userFire.doc(userid).update({bookids});
   }
 
   updateUsername(displayName: string, userid: string) {

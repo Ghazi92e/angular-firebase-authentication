@@ -76,7 +76,7 @@ export class BookListComponent implements OnInit {
     } else {
       this.user.bookids.push(this.idbook[+id])
     } 
-    this.userService.updateBookUser(this.user, this.useruid);
+    this.userService.updateUser(this.user, this.useruid);
     Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
   }
 
