@@ -9,10 +9,16 @@
             <label for="author">Auteur</label>
             <input type="text" class="form-control" id="author" formControlName="author">
         </div>
+        <label for="categories">Categorie</label>
+        <select class="form-select" formControlName="categories">
+            <option *ngFor="let data of categories" [ngValue]="data.name">
+              {{ data.name }}
+            </option>
+        </select>
         <div class="form-group" style="padding-bottom: 10px;">
             <h4>Ajouter une photo</h4>
-            <div class="text-center" style="margin-top: 10px;">
-                <img *ngIf="_book.url" [src]="_book.url" style="max-height: 300px; padding-bottom: 20px; padding-top: 10px;">
+            <div *ngIf="_book.url" class="text-center" style="margin-top: 10px;">
+                <img [src]="_book.url" style="max-height: 300px; padding-bottom: 20px; padding-top: 10px;">
             </div>
             <input type="file" (change)="selectFile($event)" class="form-control" accept="image/*">
             <div *ngIf="currentFileUpload" class="progress">

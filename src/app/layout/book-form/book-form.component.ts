@@ -16,6 +16,10 @@ import Swal from 'sweetalert2';
 export class BookFormComponent implements OnInit {
   /*@Input() book;*/
   /*@Input() book: Book | any;*/
+  categories = [
+    {name: 'Policier'},
+    {name: 'Science-fiction'},
+  ];
   _book: Book
   @Input() set book(book: Book){
     console.log('set book');
@@ -41,12 +45,12 @@ export class BookFormComponent implements OnInit {
                 this._book = {
                   title: '',
                   author: '',
-                  url: ''
+                  url: '',
+                  categorie: ''
                 }
               }
 
   ngOnInit(): void {
-    // this._book = new Book()
     this.initForm();
     this.booksService.getBooksFirestore().then((data) => {
       data.forEach((docbookid) => {
@@ -57,14 +61,17 @@ export class BookFormComponent implements OnInit {
 
   initForm() {
     if (this._book == null) {
+      this._book = new Book()
       this.bookForm = this.formBuilder.group({
         title: ['', Validators.required],
         author: ['', Validators.required],
+        categories: ['', Validators.required],
       });
     } else {
       this.bookForm = this.formBuilder.group({
         title: [this._book.title, Validators.required],
         author: [this._book.author, Validators.required],
+        categories: [this._book.categorie, Validators.required],
       });
     }
   }
@@ -72,8 +79,10 @@ export class BookFormComponent implements OnInit {
   onSaveBook() {
     const title = this.bookForm?.get('title')?.value;
     const author = this.bookForm?.get('author')?.value;
+    const categories = this.bookForm?.get('categories')?.value;
     this._book.title = title
     this._book.author = author
+    this._book.categorie = categories
     if(this.currentFileUpload && this.currentFileUpload !== '') {
       this._book.url = this.currentFileUpload.url;
     } 

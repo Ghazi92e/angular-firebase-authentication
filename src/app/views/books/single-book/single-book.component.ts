@@ -39,7 +39,8 @@ export class SingleBookComponent implements OnInit {
                 this.book = {
                   title: '',
                   author: '',
-                  url: ''
+                  url: '',
+                  categorie: ''
                 }
                 this.useruid = ''
               }
