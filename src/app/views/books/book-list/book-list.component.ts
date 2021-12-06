@@ -19,8 +19,11 @@ import { User } from 'src/app/_models/User.model';
 export class BookListComponent implements OnInit {
 
   books: Book[] = []
+  bookstest: Book[] = []
+  catbook: string[] = []
   useruid: string
   idbook: string[] = []
+  idbooktest: string[] = []
   user: User
 
   constructor(private booksService: BooksService,
@@ -49,6 +52,39 @@ export class BookListComponent implements OnInit {
     this.getBookFirestore();
   }
 
+  onCheckboxChange(event: any) {
+    if(event.target.checked) {
+      this.books = []
+      const data = event.target.value
+      this.catbook.push(data)
+      if (event.target.checked == true) {
+        this.booksService.getBooksFirestoreFilterCat(this.catbook).then((data) => {
+          data.forEach((doc) => {
+            this.bookstest.push(doc.data())
+            this.idbooktest.push(doc.id)
+          })
+          this.SpinnerService.hide()
+        })
+        this.catbook = []
+      }
+    } else {
+      const data = event.target.value
+      this.bookstest.forEach((element, index) => {
+        if (element.categorie == data) {
+          const count = this.bookstest.reduce((counter, obj) => {
+            if (obj.categorie == data) counter += 1
+            return counter;
+          }, 0);
+          this.bookstest.splice(index, count)
+          this.idbooktest.splice(index, count)
+          if (this.bookstest.length == 0) {
+            this.getBookFirestore()
+          }
+        }
+      })
+    }
+  }
+
   getBookFirestore(){
     this.SpinnerService.show()
     this.booksService.getBooksFirestore().then((data) => {
@@ -72,9 +108,9 @@ export class BookListComponent implements OnInit {
   addidbooktoUser(id: string) {
     if (this.user.bookids == null) {
       this.user.bookids = []
-      this.user.bookids.push(this.idbook[+id])
+      this.user.bookids.push(id)
     } else {
-      this.user.bookids.push(this.idbook[+id])
+      this.user.bookids.push(id)
     } 
     this.userService.updateUser(this.user, this.useruid);
     Swal.fire('Bravo !', "Votre livre a bien été ajouté", 'success');
@@ -83,16 +119,13 @@ export class BookListComponent implements OnInit {
   onNewBook() {
     this.router.navigate(['/books', 'create']);
   }
-  
-  onViewBook(id: number) {
+
+  onViewBook(id: string) {
     this.router.navigate(['/books', 'view', id]);
   }
 
-  onDeleteBook(id: number) {
-    if (id > -1) {
-      this.books.splice(id, 1);
-    }
-    this.booksService.deleteBookFirestore(this.idbook[id])
+  onDeleteBook(id: string) {
+    this.booksService.deleteBookFirestore(id)
   }
 }
 
