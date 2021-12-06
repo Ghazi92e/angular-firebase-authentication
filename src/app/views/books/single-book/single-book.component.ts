@@ -59,7 +59,7 @@ export class SingleBookComponent implements OnInit {
       data.forEach((docbookid) => {
         this.idbook.push(docbookid.id)
         this.SpinnerService.show()
-        this.booksService.getSingleBookFirestore(this.idbook[this.id]).then((doc) => {
+        this.booksService.getSingleBookFirestore(this.id).then((doc) => {
           this.book = doc.data()!
           this.SpinnerService.hide()
         })
@@ -76,9 +76,9 @@ export class SingleBookComponent implements OnInit {
     );
   }
 
-  delbook(indexbook: string) {
+  delbook(idbook: string) {
     this.user.bookids.forEach((element, index)=>{
-      if(element == indexbook) {
+      if(element == idbook) {
         this.user.bookids.splice(index, 1);
       }
     });
@@ -90,9 +90,9 @@ export class SingleBookComponent implements OnInit {
   addidbooktoUser(id: string) {
     if (this.user.bookids == null) {
       this.user.bookids = []
-      this.user.bookids.push(this.idbook[+id])
+      this.user.bookids.push(this.id)
     } else {
-      this.user.bookids.push(this.idbook[+id])
+      this.user.bookids.push(this.id)
     }
     this.userService.updateUser(this.user, this.useruid);
     this.router.navigate(['/books']);
