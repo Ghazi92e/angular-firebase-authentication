@@ -19,6 +19,8 @@ export class BookFormComponent implements OnInit {
   categories = [
     {name: 'Policier'},
     {name: 'Science-fiction'},
+    {name: 'Conte-Disney'},
+    {name: 'Fantasy'},
   ];
   _book: Book
   @Input() set book(book: Book){
@@ -88,7 +90,7 @@ export class BookFormComponent implements OnInit {
     } 
     if (this.route.snapshot.params['id']) {
       const id = this.route.snapshot.params['id'];
-      this.booksService.updateBook(this.idbook[id], this._book);
+      this.booksService.updateBook(id, this._book);
       this.router.navigate(['/books']);
     } else {
       console.log(this._book)
