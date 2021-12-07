@@ -24,13 +24,9 @@ export class EditBookComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.booksService.getBooksFirestore().then((data) => {
-      data.forEach((docbookid) => {
-        this.idbook.push(docbookid.id)
-        this.booksService.getSingleBookFirestore(this.idbook[this.id]).then((doc) => {
-          this.book = doc.data()!
-        })
-      })
+    this.booksService.getSingleBookFirestore(this.id).then((doc) => {
+      this.book = doc.data()
+      console.log(this.book)
     })
   }
 }

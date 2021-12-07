@@ -52,20 +52,18 @@ export class BookListComponent implements OnInit {
     this.getBookFirestore();
   }
 
-  onCheckboxChange(event: any) {
+  getBookCategory(event: any) {
     if(event.target.checked) {
       this.books = []
       const data = event.target.value
-      this.catbook.push(data)
       if (event.target.checked == true) {
-        this.booksService.getBooksFirestoreFilterCat(this.catbook).then((data) => {
+        this.booksService.getBooksFirestoreFilterCat(data).then((data) => {
           data.forEach((doc) => {
             this.bookstest.push(doc.data())
             this.idbooktest.push(doc.id)
           })
           this.SpinnerService.hide()
         })
-        this.catbook = []
       }
     } else {
       const data = event.target.value
