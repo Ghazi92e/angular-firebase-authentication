@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div class="col-sm-4 text-center" *ngFor="let bookcat of bookstest; let i = index" style="padding-bottom: 20px;">
+        <div class="col-sm-4 text-center" *ngFor="let bookcat of bookstest | paginate: { itemsPerPage: 5, currentPage: p }; let i = index" style="padding-bottom: 20px;">
             <div *ngFor="let datacat of idbooktest; let d = index">
                 <div *ngIf="i == d">
                     <div (click)="onViewBook(datacat)">
@@ -55,6 +55,7 @@
                 </div>
             </div>
         </div>
+        <pagination-controls (pageChange)="p = $event" class="text-center" previousLabel="Précédent" nextLabel="Suivant"></pagination-controls>
 
     </div>
     <div style="padding-top: 30px; padding-bottom: 30px;" *ngIf="this.user.email == 'ghaziatie@gmail.com'">

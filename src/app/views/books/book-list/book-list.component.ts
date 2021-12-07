@@ -25,6 +25,8 @@ export class BookListComponent implements OnInit {
   idbook: string[] = []
   idbooktest: string[] = []
   user: User
+  p: number = 1;
+
 
   constructor(private booksService: BooksService,
               private router: Router, 

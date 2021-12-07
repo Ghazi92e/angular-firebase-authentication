@@ -29,6 +29,7 @@ import { UserBookComponent } from './views/users/user-book/user-book.component';
 import { UsersService } from './_services/users.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {NgxPaginationModule} from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditUserComponent } from './views/authentication/edit-user/edit-user.component';
 @NgModule({
@@ -51,6 +52,7 @@ import { EditUserComponent } from './views/authentication/edit-user/edit-user.co
   ],
   imports: [
     BrowserModule,
+    NgxPaginationModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
