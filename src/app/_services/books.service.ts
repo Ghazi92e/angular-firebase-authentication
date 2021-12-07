@@ -18,8 +18,8 @@ export class BooksService {
     return this.bookFire.ref.get()
   }
 
-  getBooksFirestoreFilterCat(cat: string[]) {
-    return this.bookFire.ref.where("categorie", 'array-contains-any', cat).get()
+  getBooksFirestoreFilterCat(cat: string) {
+    return this.bookFire.ref.where("categorie", '==', cat).get()
   }
 
   updateBook(id: string, book: Book) {
