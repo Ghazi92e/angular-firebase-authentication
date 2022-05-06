@@ -19,13 +19,11 @@ import { User } from 'src/app/_models/User.model';
 export class BookListComponent implements OnInit {
 
   books: Book[] = []
-  bookstest: Book[] = []
-  catbook: string[] = []
   useruid: string
   idbook: string[] = []
-  idbooktest: string[] = []
   user: User
   p: number = 1;
+  selectedCategories: string[] = []
 
 
   constructor(private booksService: BooksService,
@@ -55,35 +53,38 @@ export class BookListComponent implements OnInit {
   }
 
   getBookCategory(event: any) {
-    if(event.target.checked) {
-      this.books = []
-      const data = event.target.value
-      if (event.target.checked == true) {
-        this.booksService.getBooksFirestoreFilterCat(data).then((data) => {
-          data.forEach((doc) => {
-            this.bookstest.push(doc.data())
-            this.idbooktest.push(doc.id)
-          })
-          this.SpinnerService.hide()
+    this.books = []
+
+    const data = event.target.value
+
+    if (event.target.checked == true) {
+      this.selectedCategories.push(data)
+    } else {
+      var index = this.selectedCategories.indexOf(data)
+      this.selectedCategories.splice(index, 1)
+    }
+
+    if (this.selectedCategories.length == 0) {
+      this.getBookFirestore()
+    } else {
+      this.booksService.getBooksFirestoreFilterCat(this.selectedCategories).then((data) => {
+        data.docs.map((booksCategories) => {
+          this.books.push(booksCategories.data())
+          this.idbook.push(booksCategories.id)
         })
-      }
-    } else {
-      const data = event.target.value
-      this.bookstest.forEach((element, index) => {
-        if (element.categorie == data) {
-          const count = this.bookstest.reduce((counter, obj) => {
-            if (obj.categorie == data) counter += 1
-            return counter;
-          }, 0);
-          this.bookstest.splice(index, count)
-          this.idbooktest.splice(index, count)
-          if (this.bookstest.length == 0) {
-            this.getBookFirestore()
-          }
-        }
+        this.SpinnerService.hide()
       })
     }
   }
+
+
+  // this.booksService.getBooksFirestoreFilterCat(this.selectedCategories).then((data) => {
+  //   data.forEach((doc) => {
+  //     this.booksbycategories.push(doc.data())
+  //     this.idbookbycategories.push(doc.id)
+  //   })
+  //   this.SpinnerService.hide()
+  // })
 
   getBookFirestore(){
     this.SpinnerService.show()
