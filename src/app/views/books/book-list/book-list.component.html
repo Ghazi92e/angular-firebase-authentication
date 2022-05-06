@@ -26,7 +26,7 @@
                 Fantasy
             </label>
         </div>
-        <div class="col-sm-4 text-center" *ngFor="let book of books; let i = index" style="padding-bottom: 20px;">
+        <div class="col-sm-4 text-center" *ngFor="let book of books | paginate: { itemsPerPage: 5, currentPage: p }; let i = index" style="padding-bottom: 20px;">
             <div *ngFor="let data of idbook; let d = index">
                 <div *ngIf="i == d">
                     <div (click)="onViewBook(data)">
@@ -40,23 +40,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-sm-4 text-center" *ngFor="let bookcat of bookstest | paginate: { itemsPerPage: 5, currentPage: p }; let i = index" style="padding-bottom: 20px;">
-            <div *ngFor="let datacat of idbooktest; let d = index">
-                <div *ngIf="i == d">
-                    <div (click)="onViewBook(datacat)">
-                        <app-book-item [book]="bookcat"></app-book-item>
-                    </div>
-                    <button *ngIf="user.bookids && !user.bookids.includes(datacat)" class="btn btn-primary" (click)="addidbooktoUser(datacat)">Ajouter le livre</button>
-                    <button *ngIf="!user.bookids" class="btn btn-primary" (click)="addidbooktoUser(datacat)">Ajouter le livre</button>
-                    <button class="btn btn-danger" (click)="onDeleteBook(datacat)" *ngIf="this.user.email == 'ghaziatie@gmail.com'">
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
         <pagination-controls (pageChange)="p = $event" class="text-center" previousLabel="Précédent" nextLabel="Suivant"></pagination-controls>
-
     </div>
     <div style="padding-top: 30px; padding-bottom: 30px;" *ngIf="this.user.email == 'ghaziatie@gmail.com'">
         <button class="btn btn-primary" (click)="onNewBook()">Ajouter un livre</button>
